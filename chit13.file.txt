@@ -1,0 +1,39 @@
+create table jobs(job_id int primary key, role varchar(30));
+insert into jobs values(1,'clerk');
+insert into jobs values(2,'peon');
+insert into jobs values(3,'prof');
+insert into jobs values(4,'principal');
+insert into jobs values(5,'dean');
+select * from jobs;
++--------+-----------+
+| job_id | role      |
++--------+-----------+
+|      1 | clerk     |
+|      2 | peon      |
+|      3 | prof      |
+|      4 | principal |
+|      5 | dean      |
++--------+-----------+
+create table empe(employee_id int primary key, fname varchar(30), lname varchar(30), job_id int, foreign key(job_id) references jobs(job_id) on delete no action on update no action);
+insert into empe values(1,'ganga', 'prasad',1);
+insert into empe values(2,'raju', 'kumar',1);
+insert into empe values(3,'lata', 'kumari',2);
+insert into empe values(4,'birju', 'bhaiyaa',4);
+insert into empe values(5,'lalu', 'yadav',5);
+insert into empe values(6,'leela', 'patil',3);
+select * from empe;
++-------------+-------+---------+--------+
+| employee_id | fname | lname   | job_id |
++-------------+-------+---------+--------+
+|           1 | ganga | prasad  |      1 |
+|           2 | raju  | kumar   |      1 |
+|           3 | lata  | kumari  |      2 |
+|           4 | birju | bhaiyaa |      4 |
+|           5 | lalu  | yadav   |      5 |
+|           6 | leela | patil   |      3 |
++-------------+-------+---------+--------+
+
+delete from jobs where job_id=3;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`mydb`.`empe`, CONSTRAINT `empe_ibfk_1` FOREIGN KEY (`job_id`) REFERENCES `jobs` (`job_id`))
+
+
